@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Net;
 using Newtonsoft.Json.Linq;
-
+using System.Net.NetworkInformation;
 
 namespace truckersmplauncher
 {
@@ -385,7 +385,7 @@ namespace truckersmplauncher
                     {
                         if ((string)server["game"] == "ETS2")
                         {
-                            addServer((bool)server["online"], (string)server["name"], (string)server["players"], (string)server["maxplayers"], (string)server["game"], (int)server["speedlimiter"], (int)server["queue"], loc);
+                            addServer((bool)server["online"], (string)server["name"], (string)server["players"], (string)server["maxplayers"], (string)server["game"], (int)server["speedlimiter"], (int)server["queue"], loc, (string)server["ip"]);
                             loc = loc + 59;
                         }
                     }
@@ -449,7 +449,7 @@ namespace truckersmplauncher
                     {
                         if ((string)server["game"] == "ATS")
                         {
-                            addServer((bool)server["online"], (string)server["name"], (string)server["players"], (string)server["maxplayers"], (string)server["game"], (int)server["speedlimiter"], (int)server["queue"] ,loc);
+                            addServer((bool)server["online"], (string)server["name"], (string)server["players"], (string)server["maxplayers"], (string)server["game"], (int)server["speedlimiter"], (int)server["queue"] ,loc, (string)server["ip"]);
                             loc = loc + 59;
                         }
                     }
@@ -457,7 +457,7 @@ namespace truckersmplauncher
             }
         }
 
-        private void addServer(bool online, string shortname, string players, string maxplayers, string game, int limit, int queue, int loc) {
+        private void addServer(bool online, string shortname, string players, string maxplayers, string game, int limit, int queue, int loc, string ip) {
             
             Panel serverpanel = new Panel();
 
@@ -470,7 +470,14 @@ namespace truckersmplauncher
             Label serverid = new Label();
 
             serverid.BackColor = Color.Black;
-            if (online) { serverid.BackColor = Color.FromArgb(160, 197, 95); } else { serverid.BackColor = Color.FromArgb(193, 94, 94); }
+            int ping = (int)new Ping().Send(ip).RoundtripTime;
+            if (online) {
+                if (ping > 250 && ping < 350) { serverid.BackColor = Color.FromArgb(239, 106, 59); }
+                else if (ping > 150 && ping < 250) { serverid.BackColor = Color.FromArgb(239, 186, 59); }
+                else if (ping > 50 && ping < 150) { serverid.BackColor = Color.FromArgb(239, 237, 59); }
+                else if (ping >= 0 && ping < 50) { serverid.BackColor = Color.FromArgb(106, 239, 59); }
+                else { serverid.BackColor = Color.FromArgb(239, 93, 59); }
+            } else { serverid.BackColor = Color.FromArgb(193, 94, 94); }
             serverid.Location = new Point(0, 0);
             serverid.Size = new Size(81, 44);
             serverid.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
