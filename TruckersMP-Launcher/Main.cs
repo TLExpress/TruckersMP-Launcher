@@ -46,9 +46,15 @@ namespace truckersmplauncher
         private void Main_Load()
         {
             //Add hover events
-            
             this.Mods_btn.MouseHover += new System.EventHandler(this.Updates_btn_Hover);
-
+            // Set window location
+            if (Properties.Settings.Default.WindowLocation != null) {
+                this.Location = Properties.Settings.Default.WindowLocation;
+            }
+            // Set window size
+            if (Properties.Settings.Default.WindowSize != null) {
+                this.Size = Properties.Settings.Default.WindowSize;
+            }
         }
 
         private void Main_Close(object sender, EventArgs e)
@@ -59,6 +65,20 @@ namespace truckersmplauncher
             }
             else
             {
+                // Copy window location to app settings
+                Properties.Settings.Default.WindowLocation = this.Location;
+
+                // Copy window size to app settings
+                if (this.WindowState == FormWindowState.Normal)
+                {
+                    Properties.Settings.Default.WindowSize = this.Size;
+                }
+                else
+                {
+                    Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
+                }
+                // Save settings
+                Properties.Settings.Default.Save();
                 Launcher.tfm.Close();
             }
         }
