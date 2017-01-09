@@ -175,9 +175,10 @@ namespace truckersmplauncher
             if (game == "ATS")
                 configPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/American Truck Simulator/config.cfg";
 
-            if (!System.IO.File.Exists(configPath))
+            if (!System.IO.File.Exists(configPath)) { 
+                MessageBox.Show("File\n\n\""+configPath+"\"\n\ndoes not exist!", "TruckersMP Launcher - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
-
+            }
             string line;
             try
             {
@@ -199,6 +200,7 @@ namespace truckersmplauncher
             }
             catch (Exception e) {
                 Console.WriteLine(e);
+                MessageBox.Show(e.ToString(), "TruckersMP Launcher - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return config;
         }

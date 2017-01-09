@@ -71,6 +71,7 @@ namespace truckersmplauncher
             if (readKey != null)
             {
                 Launcher.TruckersMPLocation = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\TruckersMP";
+                if (Launcher.TruckersMPLocation == null) { Launcher.TruckersMPLocation = (string)readKey.GetValue("InstallDir"); }
                 Launcher.ETS2Location = (string)readKey.GetValue("InstallLocationETS2");
                 Launcher.ATSLocation = (string)readKey.GetValue("InstallLocationATS");
 
