@@ -155,7 +155,15 @@ namespace truckersmplauncher
             }
             ServerStatus();
         }
-
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.F5))
+            {
+                ServerStatus();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         //
         // Buttons
         //
