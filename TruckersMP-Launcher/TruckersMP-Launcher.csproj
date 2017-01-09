@@ -184,6 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\ping_okay.png" />
+    <None Include="Resources\ping_none.png" />
+    <None Include="Resources\ping_good.png" />
+    <None Include="Resources\ping_bad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

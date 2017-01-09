@@ -112,10 +112,10 @@
             // 
             this.Mods_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Mods_btn.BackColor = System.Drawing.Color.Transparent;
-            this.Mods_btn.BackgroundImage = global::truckersmplauncher.Properties.Resources.mods__disabled_btn;
+            this.Mods_btn.BackgroundImage = global::truckersmplauncher.Properties.Resources.mods_btn;
             this.Mods_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Mods_btn.Cursor = System.Windows.Forms.Cursors.No;
-            this.Mods_btn.Enabled = false;
+            this.Mods_btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            //this.Mods_btn.Enabled = false;
             this.Mods_btn.Location = new System.Drawing.Point(770, 18);
             this.Mods_btn.Name = "Mods_btn";
             this.Mods_btn.Size = new System.Drawing.Size(93, 31);

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Net.NetworkInformation;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace truckersmplauncher
 {
@@ -59,22 +61,16 @@ namespace truckersmplauncher
 
         private void Main_Close(object sender, EventArgs e)
         {
-            if (Launcher.TFMRadioPlaying)
-            {
+            if (Launcher.TFMRadioPlaying) {
                 Launcher.tfm.open_launcher.Visible = true;
-            }
-            else
-            {
+            } else {
                 // Copy window location to app settings
                 Properties.Settings.Default.WindowLocation = this.Location;
 
                 // Copy window size to app settings
-                if (this.WindowState == FormWindowState.Normal)
-                {
+                if (this.WindowState == FormWindowState.Normal) {
                     Properties.Settings.Default.WindowSize = this.Size;
-                }
-                else
-                {
+                } else {
                     Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
                 }
                 // Save settings
@@ -136,6 +132,13 @@ namespace truckersmplauncher
                         TruckersMP.integrityCheck(this.TruckersMPUpdateProgress, this.TruckersMPUpdateProgressLabel);
                     }
                 }
+                if (Properties.Settings.Default.FirstStart)
+                {
+                    Properties.Settings.Default.FirstStart = false;
+                    Properties.Settings.Default.Save();
+                    Settings settings = new Settings();
+                    settings.ShowDialog();
+                }
             }
             else
             {
@@ -156,7 +159,6 @@ namespace truckersmplauncher
         //
         // Buttons
         //
-
         private void Button_Hover(object sender, System.EventArgs e)
         {
             var button = ((PictureBox)sender);
@@ -190,10 +192,10 @@ namespace truckersmplauncher
 
         private void Mods_btn_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("This feature is not implemented yet!", "TruckersMP Launcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            /*serverspanel.Visible = false;
-            modspanel.Visible = true;
-            loadMods();*/
+            //DialogResult dialogResult = MessageBox.Show("This feature is not implemented yet!", "TruckersMP Launcher", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            serverspanel.Visible = !serverspanel.Visible;
+            modspanel.Visible = !modspanel.Visible;
+            if (modspanel.Visible) loadMods();
         }
 
         private void Settings_btn_Hover(object sender, System.EventArgs e)
@@ -361,11 +363,11 @@ namespace truckersmplauncher
                 ets2mppanel.Anchor = (AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right);
 
                 Label ets2mptitle = new Label();
-                ets2mptitle.Font = new System.Drawing.Font("Calibri", 15F, System.Drawing.FontStyle.Bold);
-                ets2mptitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(65)))), ((int)(((byte)(71)))));
-                ets2mptitle.Location = new System.Drawing.Point(13, 8);
+                ets2mptitle.Font = new Font("Calibri", 15F, System.Drawing.FontStyle.Bold);
+                ets2mptitle.ForeColor = Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(65)))), ((int)(((byte)(71)))));
+                ets2mptitle.Location = new Point(13, 8);
                 ets2mptitle.AutoSize = true;
-                ets2mptitle.Text = "Euro Truck Simulator 2 (Multiplayer)";
+                ets2mptitle.Text = "Euro Truck Simulator 2";
 
                 PictureBox ets2spplay = new PictureBox();
                 ets2spplay.Location = new Point(745, 6);
@@ -373,10 +375,10 @@ namespace truckersmplauncher
                 ets2spplay.BackgroundImage = Properties.Resources.play_sp_btn;
                 ets2spplay.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
                 ets2spplay.Name = "ETS2";
-                ets2spplay.Cursor = System.Windows.Forms.Cursors.Hand;
-                ets2spplay.Click += new System.EventHandler(this.launchGame);
-                ets2spplay.MouseHover += new System.EventHandler(this.Button_Hover);
-                ets2spplay.MouseLeave += new System.EventHandler(this.Button_HoverLeave);
+                ets2spplay.Cursor = Cursors.Hand;
+                ets2spplay.Click += new EventHandler(this.launchGame);
+                ets2spplay.MouseHover += new EventHandler(this.Button_Hover);
+                ets2spplay.MouseLeave += new EventHandler(this.Button_HoverLeave);
 
                 PictureBox ets2mpplay = new PictureBox();
                 ets2mpplay.Location = new Point(853, 6);
@@ -384,10 +386,10 @@ namespace truckersmplauncher
                 ets2mpplay.BackgroundImage = Properties.Resources.play_mp_btn;
                 ets2mpplay.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
                 ets2mpplay.Name = "ETS2MP";
-                ets2mpplay.Cursor = System.Windows.Forms.Cursors.Hand;
-                ets2mpplay.Click += new System.EventHandler(this.launchGame);
-                ets2mpplay.MouseHover += new System.EventHandler(this.Button_Hover);
-                ets2mpplay.MouseLeave += new System.EventHandler(this.Button_HoverLeave);
+                ets2mpplay.Cursor = Cursors.Hand;
+                ets2mpplay.Click += new EventHandler(this.launchGame);
+                ets2mpplay.MouseHover += new EventHandler(this.Button_Hover);
+                ets2mpplay.MouseLeave += new EventHandler(this.Button_HoverLeave);
 
                 serverspanel.Controls.Add(ets2mppanel);
                 ets2mppanel.Controls.Add(ets2mptitle);
@@ -429,7 +431,7 @@ namespace truckersmplauncher
                 atsmptitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(65)))), ((int)(((byte)(71)))));
                 atsmptitle.Location = new System.Drawing.Point(13, 8);
                 atsmptitle.AutoSize = true;
-                atsmptitle.Text = "American Truck Simulator (Multiplayer)";
+                atsmptitle.Text = "American Truck Simulator";
 
                 PictureBox atsspplay = new PictureBox();
                 atsspplay.Location = new Point(745, 6);
@@ -476,7 +478,7 @@ namespace truckersmplauncher
                 }
             }
         }
-
+        //List<Thread> threads = new List<Thread>();
         private void addServer(bool online, string shortname, string players, string maxplayers, string game, int limit, int queue, int loc, string ip) {
             
             Panel serverpanel = new Panel();
@@ -490,20 +492,38 @@ namespace truckersmplauncher
             Label serverid = new Label();
 
             serverid.BackColor = Color.Black;
-            int ping = (int)new Ping().Send(ip).RoundtripTime;
-            if (online) {
-                if (ping > 250 && ping < 350) { serverid.BackColor = Color.FromArgb(239, 106, 59); }
-                else if (ping > 150 && ping < 250) { serverid.BackColor = Color.FromArgb(239, 186, 59); }
-                else if (ping > 50 && ping < 150) { serverid.BackColor = Color.FromArgb(239, 237, 59); }
-                else if (ping >= 0 && ping < 50) { serverid.BackColor = Color.FromArgb(106, 239, 59); }
-                else { serverid.BackColor = Color.FromArgb(239, 93, 59); }
-            } else { serverid.BackColor = Color.FromArgb(193, 94, 94); }
             serverid.Location = new Point(0, 0);
             serverid.Size = new Size(81, 44);
             serverid.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             serverid.Text = shortname;
             serverid.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             serverid.Name = "serverid" + shortname;
+            Thread thread = new Thread(() =>
+            {
+                int ping = (int)new Ping().Send(ip).RoundtripTime;
+                if (online) {
+                    if (ping > 250 && ping < 350) { serverid.BackColor = Color.FromArgb(239, 106, 59); }
+                    else if (ping > 150 && ping < 250) { serverid.BackColor = Color.FromArgb(239, 186, 59); }
+                    else if (ping > 50 && ping < 150) { serverid.BackColor = Color.FromArgb(239, 237, 59); }
+                    else if (ping >= 0 && ping < 50) { serverid.BackColor = Color.FromArgb(106, 239, 59); }
+                    else { serverid.BackColor = Color.FromArgb(239, 93, 59);  }
+                } else { serverid.BackColor = Color.FromArgb(193, 94, 94); }
+                //PictureBox pingicon = new PictureBox();
+                //pingicon.Location = new Point(serverid.Location.X + serverid.PreferredWidth + 18, 13);
+                //pingicon.Size = new Size(16, 17);
+                //pingicon.BackgroundImage = Properties.Resources.ping_okay;
+                //pingicon.Name = "pinglabel" + shortname;
+                //Label pinglbl = new Label();
+                //pinglbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+                //pinglbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(65)))), ((int)(((byte)(71)))));
+                //pinglbl.Location = new System.Drawing.Point(carslbl.Location.X + carslbl.Width + 6, 12);
+                //pinglbl.AutoSize = true;
+                //pinglbl.Text = ping.ToString() + "ms";
+                //pinglbl.Name = "pinglabel" + shortname;
+                //serverpanel.Controls.Add(pinglbl);
+            }); thread.Start();
+
+
 
             PictureBox playericon = new PictureBox();
             playericon.Location = new Point(95, 13);
@@ -589,16 +609,17 @@ namespace truckersmplauncher
                 serverpanel.Controls.Add(carslbl);
             }
 
-            PictureBox playbutton = new PictureBox();
-            playbutton.Location = new Point(864, 0);
-            playbutton.Size = new Size(112, 44);
-            playbutton.BackgroundImage = Properties.Resources.server_connect_btn;
-            playbutton.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
-            playbutton.Name = "playbutton" + shortname;
+            //PictureBox playbutton = new PictureBox();
+            //playbutton.Location = new Point(864, 0);
+            //playbutton.Size = new Size(112, 44);
+            //playbutton.BackgroundImage = Properties.Resources.server_connect_btn;
+            //playbutton.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
+            //playbutton.Name = "playbutton" + shortname;
 
 
             serverspanel.Controls.Add(serverpanel);
             serverpanel.Controls.Add(serverid);
+            //serverpanel.Controls.Add(pingicon);
             serverpanel.Controls.Add(playericon);
             serverpanel.Controls.Add(playerslbl);
             serverpanel.Controls.Add(queueicon);
