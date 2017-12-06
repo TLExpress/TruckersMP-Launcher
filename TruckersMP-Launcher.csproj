@@ -1,13 +1,14 @@
-﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+    <ProjectGuid>{706C5CF1-A792-4FE6-8C11-E2D4CAB80F39}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>WindowsApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <AssemblyName>TruckersMPLauncher</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -19,6 +20,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -28,8 +30,41 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>TruckersMP_Launcher</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.5.0, Culture=neutral, PublicKeyToken=9dea7c6e17aa31ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\ICSharpCode.SharpZipLib.Patched.0.86.5.1\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -38,6 +73,166 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="Resources\about_btn.png" />
+    <Content Include="Resources\about_btn_hover.png" />
+    <Content Include="Resources\advancedMode.png" />
+    <Content Include="Resources\bg.png" />
+    <Content Include="Resources\car.png" />
+    <Content Include="Resources\checkbox_checked.png" />
+    <Content Include="Resources\checkbox_unchecked.png" />
+    <Content Include="Resources\checkbox_uncheked.png" />
+    <Content Include="Resources\favicon.png" />
+    <Content Include="Resources\game.png" />
+    <Content Include="Resources\launcherlogo.png" />
+    <Content Include="Resources\launcherlogo_new.png" />
+    <Content Include="Resources\launcherlogo_new1.png" />
+    <Content Include="Resources\launcherlogo_new2.png" />
+    <Content Include="Resources\launcherlogo_white.png" />
+    <Content Include="Resources\limit.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\mods_btn.png" />
+    <Content Include="Resources\mods_btn_hover.png" />
+    <Content Include="Resources\mods__disabled_btn.png" />
+    <Content Include="Resources\news_blank.png" />
+    <Content Include="Resources\offlinebg.jpg" />
+    <Content Include="Resources\players.png" />
+    <Content Include="Resources\play_ats.png" />
+    <Content Include="Resources\play_atsmp.png" />
+    <Content Include="Resources\play_atsmp_hover.png" />
+    <Content Include="Resources\play_ats_hover.png" />
+    <Content Include="Resources\play_btn.png" />
+    <Content Include="Resources\play_btn_hover.png" />
+    <Content Include="Resources\play_ets2.png" />
+    <Content Include="Resources\play_ets2mp.png" />
+    <Content Include="Resources\play_ets2mp_hover.png" />
+    <Content Include="Resources\play_ets2_hover.png" />
+    <Content Include="Resources\play_mp_btn.png" />
+    <Content Include="Resources\play_mp_btn_hover.png" />
+    <Content Include="Resources\play_sp_btn.png" />
+    <Content Include="Resources\play_sp_btn_hover.png" />
+    <Content Include="Resources\queue.png" />
+    <Content Include="Resources\radio_btn.png" />
+    <Content Include="Resources\radio_hover_btn.png" />
+    <Content Include="Resources\server_connect_btn.png" />
+    <Content Include="Resources\settings_btn.png" />
+    <Content Include="Resources\settings_hover_btn.png" />
+    <Content Include="Resources\simpleMode.png" />
+    <Content Include="Resources\tfm.png" />
+    <Content Include="Resources\tfm_play.png" />
+    <Content Include="Resources\tfm_stop.png" />
+    <Content Include="Resources\version.png" />
+    <Content Include="Source\.gitignore" />
+    <Content Include="Source\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="README.md" />
+    <None Include="Source\app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+    <Compile Include="Properties\Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Source\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\CProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\Game.cs" />
+    <Compile Include="Source\Launcher.cs" />
+    <Compile Include="Source\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\mode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\mode.Designer.cs">
+      <DependentUpon>mode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Program.cs" />
+    <Compile Include="Source\ReadFullyStream.cs" />
+    <Compile Include="Source\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Simple.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Simple.Designer.cs">
+      <DependentUpon>Simple.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\transparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\transparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Source\truckersfm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\truckersfm.Designer.cs">
+      <DependentUpon>truckersfm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\TruckersMP.cs" />
+    <Compile Include="Source\Updater.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Updater.Designer.cs">
+      <DependentUpon>Updater.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Source\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\mode.resx">
+      <DependentUpon>mode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Simple.resx">
+      <DependentUpon>Simple.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\transparentLabel.resx">
+      <DependentUpon>transparentLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\transparentPanel.resx">
+      <DependentUpon>transparentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\truckersfm.resx">
+      <DependentUpon>truckersfm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Updater.resx">
+      <DependentUpon>Updater.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

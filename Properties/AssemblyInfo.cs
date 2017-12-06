@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Euro Truck 2 Multiplayer Mod Launcher")]
-[assembly: AssemblyCopyright("Copyright ©  TheUnknownKiller")]
+[assembly: AssemblyCopyright("Copyright ©  TheUnknownKiller, Bluscream")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
